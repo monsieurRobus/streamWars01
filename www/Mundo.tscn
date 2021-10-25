@@ -1,16 +1,33 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://camara.tscn" type="PackedScene" id=1]
-[ext_resource path="res://robotBase.tscn" type="PackedScene" id=2]
-[ext_resource path="res://asset/arboles/Models/Tree Type5 04.dae" type="PackedScene" id=3]
+[ext_resource path="res://asset/arboles/Models/Tree Type5 04.dae" type="PackedScene" id=2]
+[ext_resource path="res://robotBase.tscn" type="PackedScene" id=3]
+
+[sub_resource type="HeightMapShape" id=1]
+
+[sub_resource type="PlaneMesh" id=2]
 
 [node name="Mundo" type="Spatial"]
 
 [node name="controlStreamer" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.79292, -0.775679, -7.12085 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.13848, 0.888848, -11.0473 )
 
-[node name="RobotBase" parent="." instance=ExtResource( 2 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -8.8177, -8.60845, -4.32414 )
+[node name="Arbol" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.21238, -0.105006, -5.87419 )
 
-[node name="Scene Root" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.21238, -1.84228, -5.87419 )
+[node name="RobotBase" parent="." instance=ExtResource( 3 )]
+transform = Transform( -2.82775e-08, 0.762563, 0.646914, 3.33327e-08, 0.646914, -0.762563, -1, 0, -4.37114e-08, -5.51043, 2.02929, -3.27115 )
+
+[node name="Suelo" type="Spatial" parent="."]
+
+[node name="StaticBody" type="StaticBody" parent="Suelo"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Suelo/StaticBody"]
+transform = Transform( 100, 0, 0, 0, 0.5, 0, 0, 0, 100, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Suelo/StaticBody"]
+transform = Transform( 20, 0, 0, 0, 1, 0, 0, 0, 20, 0, 0, 0 )
+mesh = SubResource( 2 )
+material/0 = null
